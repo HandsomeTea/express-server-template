@@ -1,4 +1,4 @@
-const _protectedURL = (url: string) => {
+const _protectedUrl = (url: string) => {
 	try {
 		const address = new URL(url);
 
@@ -6,24 +6,18 @@ const _protectedURL = (url: string) => {
 		address.password = '***';
 
 		return address.toString();
-	} catch (e) { // eslint-disable-line @typescript-eslint/no-unused-vars
+	} catch (e) {
+		// biome-ignore lint/suspicious/noConsole: 正常输出
+		console.warn(e);
 		return url;
 	}
 };
 
-// @ts-ignore
-
-export function protectedURL(url: string): string;
-
-// @ts-ignore
-export function protectedURL(url: Array<string>): Array<string>;
-
-// @ts-ignore
-export const protectedURL = (url: string | Array<string>): string | Array<string> => {
+export const protectedUrl = <T extends string | Array<string>>(url: T): T => {
 	if (typeof url === 'string') {
-		return _protectedURL(url);
+		return _protectedUrl(url) as T;
 	} else if (Array.isArray(url)) {
-		return url.map(a => _protectedURL(a));
+		return url.map((a) => _protectedUrl(a)) as T;
 	}
 	return url;
 };

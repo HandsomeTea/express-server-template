@@ -1,6 +1,6 @@
+import type { NextFunction, Request, Response } from 'express';
+import { getContext, log, trace } from '#/configs/index';
 import packageData from '../../package.json' with { type: 'json' };
-import type { Request, Response, NextFunction } from 'express';
-import { getContext, log, trace } from '@/configs/index.js';
 
 const serverName = packageData.name;
 
@@ -18,12 +18,15 @@ export default (err: ExceptionInstance, req: Request, res: Response, _next: Next
 	const ctx = getContext();
 
 	if (ctx) {
-		trace({
-			traceId: ctx.traceId,
-			spanId: ctx.spanId,
-			parentSpanId: ctx.parentSpanId,
-			response: result
-		}, 'http-error').info(`[${req.method}] ${req.originalUrl} =>`);
+		trace(
+			{
+				traceId: ctx.traceId,
+				spanId: ctx.spanId,
+				parentSpanId: ctx.parentSpanId,
+				response: result
+			},
+			'http-error'
+		).info(`[${req.method}] ${req.originalUrl} =>`);
 	}
 	res.status(status || 500).send(result);
 };

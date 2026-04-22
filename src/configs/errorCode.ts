@@ -11,16 +11,13 @@ export const HttpErrorType = {
 	TOO_MANY_REQUESTS: 429
 } as const;
 
-
-// @ts-ignore
+// @ts-expect-error
 export const ErrorCode: { [K in keyof typeof HttpErrorType]: K } = {} as const;
 
 for (const key in HttpErrorType) {
-
-	// @ts-ignore
+	// @ts-expect-error
 	ErrorCode[key] = key;
 }
-
 
 /**
  * @api {Error} error_code 错误码释义
@@ -51,7 +48,6 @@ for (const key in HttpErrorType) {
  * @apiError {array} reason 错误信息中的变量(如有)信息
  * @apiError {array} source 错误源追踪信息
  */
-
 
 /**
  * @apiDefine loginRequiredRequest

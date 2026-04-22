@@ -2,12 +2,12 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
-    "target": "ES2022",
+    "target": "ES2025",
     "moduleResolution": "NodeNext",
     "types": [
       "node"
@@ -39,23 +39,54 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "incremental": true, // 生成tsbuildinfo.json文件
+    "tsBuildInfoFile": "./.tsbuildinfo",
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": [
+      "#/*": [
         "./src/*"
+      ],
+      "#configs/*": [
+        "./src/configs/*"
+      ],
+      "#startup/*": [
+        "./src/startup/*"
+      ],
+      "#utils/*": [
+        "./src/utils/*"
+      ],
+      "#services/*": [
+        "./src/services/*"
+      ],
+      "#schemas/*": [
+        "./src/schemas/*"
+      ],
+      "#routes/*": [
+        "./src/routes/*"
+      ],
+      "#middlewares/*": [
+        "./src/middlewares/*"
+      ],
+      "#tools/*": [
+        "./src/tools/*"
+      ],
+      "#userTest/*": [
+        "./tests/user/*"
       ]
     }
   },
   "include": [
     "src/**/*.ts",
-    "index.ts",
+    "tests/**/*.ts",
     "typings/*.d.ts",
-    "tests/**/*.ts"
+    "index.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "tests"
   ]
 }

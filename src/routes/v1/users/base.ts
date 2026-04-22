@@ -1,11 +1,12 @@
-import { ErrorCode } from '@/configs/index.js';
-// import { check } from '@/utils';
+// import { check } from '#/utils';
 // import { isPhone } from '@coco-sheng/js-tools';
 import express from 'express';
+import { ErrorCode } from '#/configs/index';
 
 const router = express.Router();
 
-router.route('/user')
+router
+	.route('/user')
 	/**
 	 * @api {post} /api/v1/user/new 新建用户
 	 * @apiGroup 用户账户
@@ -15,7 +16,7 @@ router.route('/user')
 	 * @apiBody {String} password 密码
 	 * @apiBody {String} [phone] 手机号
 	 */
-	.post(async (req, res) => {
+	.post(async (_req, res) => {
 		// check(req.body, {
 		// 	name: { type: String, notEmpty: true, required: true },
 		// 	account: { type: String, notEmpty: true, required: true },
@@ -59,14 +60,15 @@ router.route('/user')
 		// });
 	});
 
+router
+	.route('/administrator/:account')
+	.all((req, _res, next) => {
+		if (!req.params.account) {
+			throw new Exception('administrator account is required.', ErrorCode.INVALID_ARGUMENTS);
+		}
 
-router.route('/administrator/:account').all((req, _res, next) => {
-	if (!req.params.account) {
-		throw new Exception('administrator account is required.', ErrorCode.INVALID_ARGUMENTS);
-	}
-
-	next();
-})
+		next();
+	})
 	/**
 	 * @api {delete} /api/v1/user/administrator/:account 管理员删除
 	 * @apiGroup 管理员账户
@@ -75,7 +77,6 @@ router.route('/administrator/:account').all((req, _res, next) => {
 	 */
 	.delete(async (/*req, res*/) => {
 		// const adminCount = await AdminUsers.count();
-
 		// if (adminCount === 1) {
 		// 	throw new Exception('there must be one admin user at least.', ErrorCode.NOT_ALLOWED);
 		// }
@@ -92,11 +93,9 @@ router.route('/administrator/:account').all((req, _res, next) => {
 	 */
 	.put(async (/*req, res*/) => {
 		// const { name, password, phone } = req.body as AdminUserModel;
-
 		// if (phone && !isPhone(phone)) {
 		// 	throw new Exception('invalid phone.', ErrorCode.INVALID_PHONE);
 		// }
-
 		// res.sendData(await AdminUsers.update(req.params.account, { name, password, phone }));
 	})
 	/**

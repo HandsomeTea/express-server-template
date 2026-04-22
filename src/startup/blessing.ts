@@ -8,14 +8,14 @@ const buddhaBlessing = () => {
 		'8弥8                        88" . "88                         8弥8',
 		'8陀8                        (| ^_^ |)                         8陀8',
 		'8佛8                        O\\  =  /O                         8佛8',
-		'8南8                     ____/`---\'\\____                      8南8',
-		'8无8                   .\'  \\\\|     |//  `.                    8无8',
+		"8南8                     ____/`---'\\____                      8南8",
+		"8无8                   .'  \\\\|     |//  `.                    8无8",
 		'8阿8                  /  \\\\|||  :  |||//  \\                   8阿8',
 		'8弥8                 /  _||||| -:- |||||-  \\                  8弥8',
 		'8陀8                 |   | \\\\\\  -  /// |   |                  8陀8',
-		'8佛8                 | \\_|  \'\'\\---/\'\'  |_/ |                  8佛8',
+		"8佛8                 | \\_|  ''\\---/''  |_/ |                  8佛8",
 		'8南8                 \\  .-\\__  `-`  ___/-. /                  8南8',
-		'8无8               ___`. .\'  /--.--\\  `. . ___                8无8',
+		"8无8               ___`. .'  /--.--\\  `. . ___                8无8",
 		'8阿8             ."" \'<  `.___\\_<|>_/___.\'  >\'"" .            8阿8',
 		'8弥8            | | :  `- \\`.;`\\ _ /`;.`/ - ` : | |           8弥8',
 		'8陀8            \\  \\ `-.   \\_ __\\ /__ _/   .-` /  /           8陀8',
@@ -36,7 +36,7 @@ const buddhaBlessing = () => {
 		'888888888888888888888888888888888888888888888888888888888888888888'
 	];
 
-
+	// biome-ignore lint/suspicious/noConsole: 正常输出
 	console.log(`\x1B[38;5;214m${layout.join('\n')}\x1B[0m`);
 };
 const alpacaBlessing = () => {
@@ -55,7 +55,7 @@ const alpacaBlessing = () => {
        ┗┻┛    ┗┻┛
     `;
 
-
+	// biome-ignore lint/suspicious/noConsole: 正常输出
 	console.log(`\x1B[38;5;34m${beast}\x1B[0m`);
 };
 const catBlessing = () => {
@@ -65,7 +65,7 @@ const catBlessing = () => {
       > ^ <  --- "Meow! Your code is purr-fect!"
     `;
 
-
+	// biome-ignore lint/suspicious/noConsole: 正常输出
 	console.log(`\x1B[38;5;34m${cat}\x1B[0m`);
 };
 const techBanner = () => {
@@ -79,7 +79,7 @@ const techBanner = () => {
     |_________________________________________|
     `;
 
-
+	// biome-ignore lint/suspicious/noConsole: 正常输出
 	console.log(`\x1B[32;1m${banner}\x1B[0m`);
 };
 
@@ -92,7 +92,7 @@ export const createBlessing = (afterInfo?: string) => {
 	}
 
 	if (afterInfo) {
-
+		// biome-ignore lint/suspicious/noConsole: 正常输出
 		console.log(`\n\x1B[32;1m ... ${afterInfo}\x1B[0m\n\n`);
 	}
 };

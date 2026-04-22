@@ -1,8 +1,8 @@
-import express from 'express';
-import helmet from 'helmet';
 import compression from 'compression';
+import express from 'express';
 import { rateLimit } from 'express-rate-limit';
-import { ErrorCode } from '@/configs/index.js';
+import helmet from 'helmet';
+import { ErrorCode } from '#/configs/index';
 
 const app = express();
 
@@ -10,28 +10,30 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(helmet());
 app.use(compression());
-app.use(rateLimit({
-	// --- 基础频率配置 ---
-	windowMs: 15 * 60 * 1000, // 15 分钟窗口期
-	limit: 100, // 每个 IP 在 windowMs 内允许的最大请求数
-	// --- 响应处理 ---
-	standardHeaders: 'draft-7', // 在响应头中返回 RateLimit 详情 (符合最新标准)
-	legacyHeaders: false, // 禁用旧版的 X-RateLimit-* 头
-	message: {
-		status: 429,
-		message: '请求过于频繁，请稍后再试。'
-	},
-	validate: { xForwardedForHeader: false }, // 禁用对 X-Forwarded-For 头的验证
-	// --- 异常处理 ---
-	skip: (req) => {
-		// 可以在这里排除内网白名单或特定路径
-		return req.ip === '127.0.0.1';
-	}
-}));
+app.use(
+	rateLimit({
+		// --- 基础频率配置 ---
+		windowMs: 15 * 60 * 1000, // 15 分钟窗口期
+		limit: 100, // 每个 IP 在 windowMs 内允许的最大请求数
+		// --- 响应处理 ---
+		standardHeaders: 'draft-7', // 在响应头中返回 RateLimit 详情 (符合最新标准)
+		legacyHeaders: false, // 禁用旧版的 X-RateLimit-* 头
+		message: {
+			status: 429,
+			message: '请求过于频繁，请稍后再试。'
+		},
+		validate: { xForwardedForHeader: false }, // 禁用对 X-Forwarded-For 头的验证
+		// --- 异常处理 ---
+		skip: (req) => {
+			// 可以在这里排除内网白名单或特定路径
+			return req.ip === '127.0.0.1';
+		}
+	})
+);
 
 if (process.env.NODE_ENV === 'development') {
 	// 假设你生成了 openapi.json
-	app.get('/docs', (req, res) => {
+	app.get('/docs', (_req, res) => {
 		res.send(`
             <script type="module">
                 import { renderScalar } from 'https://cdn.jsdelivr.net/npm/@scalar/api-reference'
@@ -51,16 +53,12 @@ app.get('/', (_req, res) => {
 	});
 });
 
-import {
-	acceptRequestHandle,
-	successResponseHandle,
-	errorHandle
-} from '@/middlewares/index.js';
+import { acceptRequestHandle, errorHandle, successResponseHandle } from '#/middlewares/index';
 
 app.use(acceptRequestHandle);
 app.use(successResponseHandle);
 
-import v1 from './v1/index.js';
+import v1 from '#routes/v1/index';
 
 app.use('/api/v1', v1);
 app.use('{*path}', (req) => {

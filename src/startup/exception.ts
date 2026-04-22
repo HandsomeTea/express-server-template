@@ -1,9 +1,9 @@
-import packageData from '../package.json' with { type: 'json' };
-import { HttpErrorType } from '@/configs/errorCode.js';
+import { HttpErrorType } from '#/configs/errorCode';
+import packageData from '../../package.json' with { type: 'json' };
 
 const serverName = packageData.name;
 
-// @ts-ignore
+// @ts-expect-error
 global.Exception = class Exception extends Error {
 	public message: string;
 	public code!: string;
@@ -11,26 +11,29 @@ global.Exception = class Exception extends Error {
 	public reason?: Record<string, unknown>;
 	public source: Array<string> = [];
 
-	constructor(error?: string | ExceptionInstance | Error | Record<string, unknown>, code?: string, reason?: Record<string, unknown>) {
+	constructor(
+		error?: string | ExceptionInstance | Error | Record<string, unknown>,
+		code?: string,
+		reason?: Record<string, unknown>
+	) {
 		super();
 
 		if (typeof error === 'string') {
 			this.message = error;
 		} else {
-
-			// @ts-ignore
+			// @ts-expect-error
 			this.message = error?.message || JSON.stringify(error) || 'inner server error!';
 
-			// @ts-ignore
+			// @ts-expect-error
 			this.code = error.code;
 
-			// @ts-ignore
+			// @ts-expect-error
 			this.status = error.status;
 
-			// @ts-ignore
+			// @ts-expect-error
 			this.reason = error.reason;
 
-			// @ts-ignore
+			// @ts-expect-error
 			this.source = Array.from(error.source || '');
 		}
 
@@ -43,8 +46,7 @@ global.Exception = class Exception extends Error {
 		}
 
 		if (!this.status) {
-
-			// @ts-ignore
+			// @ts-expect-error
 			this.status = HttpErrorType[this.code];
 
 			if (!this.status) {

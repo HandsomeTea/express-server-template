@@ -1,5 +1,5 @@
 #指定使用最新版本的node基础镜像
-FROM node:20.20.0
+FROM node:24.15.0
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -10,8 +10,6 @@ ENV LOG_LEVEL=info
 
 #将宿主机某目录的内容复制到镜像目录中
 COPY ./dist /usr/src/app
-COPY package.json /usr/src/app/package.json
-COPY package-lock.json /usr/src/app/package-lock.json
 
 #安装nodejs应用的依赖(WORKDIR那一步已经将进入/usr/src/app目录)
 RUN npm install
@@ -29,7 +27,7 @@ EXPOSE 8010
 # CMD ["clinic", "flame", "--open=false", "--", "node", "--max-old-space-size=2560", "--max_semi_space_size=512", "index.js"]
 # CMD ["clinic", "heapprofiler", "--open=false", "--", "node", "--max-old-space-size=2560", "--max_semi_space_size=512", "index.js"]
 # CMD ["clinic", "doctor", "--open=false", "--", "node", "--max-old-space-size=2560", "--max_semi_space_size=512", "index.js"]
-CMD ["TZ='Asia/Shanghai'", "node", "--max-old-space-size=900", "--max_semi_space_size=64", "index.js"]
+CMD ["TZ='Asia/Shanghai'", "node", "--max-old-space-size=900", "--max_semi_space_size=64", "src/index.js"]
 
 #开始创建docker应用的镜像，-t参数，将镜像命名为test
 #docker build -t test ./

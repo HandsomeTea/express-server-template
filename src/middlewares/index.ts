@@ -1,9 +1,5 @@
-import acceptRequestHandle from './receive.js';
-import successResponseHandle from './send.js';
-import errorHandle from './error.js';
+import errorHandle from '#middlewares/error';
+import acceptRequestHandle from '#middlewares/receive';
+import successResponseHandle from '#middlewares/send';
 
-export {
-	acceptRequestHandle,
-	successResponseHandle,
-	errorHandle
-};
+export { acceptRequestHandle, errorHandle, successResponseHandle };

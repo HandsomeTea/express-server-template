@@ -1,11 +1,11 @@
-import { AsyncLocalStorage } from 'async_hooks';
+import { AsyncLocalStorage } from 'node:async_hooks';
 
 // 定义你想要存储的数据结构
 export interface RequestContext {
-    userId: string;
-    traceId: string;
-    spanId: string;
-    parentSpanId: string;
+	userId: string;
+	traceId: string;
+	spanId: string;
+	parentSpanId: string;
 }
 
 // 创建一个全局唯一的存储实例

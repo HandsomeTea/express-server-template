@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { getENV, system } from '@/configs/index.js';
-import { protectedURL } from '@/utils/index.js';
+import { getEnv, system } from '#/configs/index';
+import { protectedUrl } from '#/utils/index';
 
 const RECONNET_TIME = 5000;
 const mongoconnect = async () => {
-	const mongodbAddress = getENV('MONGO_URL');
+	const mongodbAddress = getEnv('MONGO_URL');
 
 	if (!mongodbAddress) {
 		return system('mongodb').error(`mongodb connect address is required but get "${mongodbAddress}"`);
@@ -19,7 +19,7 @@ const mongoconnect = async () => {
 	}
 };
 
-export default new class MongoDB {
+export default new (class MongoDb {
 	constructor() {
 		if (!this.isUseful) {
 			return;
@@ -30,27 +30,32 @@ export default new class MongoDB {
 
 	private async init() {
 		// 初始化操作
-		this.server.once('connected', () => { // 连接成功
-			system('mongodb').info(`mongodb connected on ${protectedURL(getENV('MONGO_URL'))} success and ready to use.`);
+		this.server.once('connected', () => {
+			// 连接成功
+			system('mongodb').info(`mongodb connected on ${protectedUrl(getEnv('MONGO_URL'))} success and ready to use.`);
 		});
 
-		this.server.on('disconnected', () => { // 连接失败或中断
-			system('mongodb').fatal(`disconnected! connection is break off. it will be retried in ${RECONNET_TIME} ms after every reconnect until success unless process exit.`);
+		this.server.on('disconnected', () => {
+			// 连接失败或中断
+			system('mongodb').fatal(
+				`disconnected! connection is break off. it will be retried in ${RECONNET_TIME} ms after every reconnect until success unless process exit.`
+			);
 		});
 
-		this.server.on('reconnected', () => { // 重新连接成功
-			system('mongodb').info(`reconnect on ${protectedURL(getENV('MONGO_URL'))} success and ready to use.`);
+		this.server.on('reconnected', () => {
+			// 重新连接成功
+			system('mongodb').info(`reconnect on ${protectedUrl(getEnv('MONGO_URL'))} success and ready to use.`);
 		});
 		return await mongoconnect();
 	}
 
 	/**
-     * 系统是否采用mongodb作为数据库
-     * @readonly
-     * @private
-     */
+	 * 系统是否采用mongodb作为数据库
+	 * @readonly
+	 * @private
+	 */
 	private get isUseful() {
-		return !!getENV('MONGO_URL');
+		return !!getEnv('MONGO_URL');
 	}
 
 	public get server() {
@@ -65,7 +70,7 @@ export default new class MongoDB {
 	}
 
 	public get isOK() {
-		return !this.isUseful || this.isUseful && this.server.readyState === 1;
+		return !this.isUseful || (this.isUseful && this.server.readyState === 1);
 	}
 
 	public async close(): Promise<void> {
@@ -73,4 +78,4 @@ export default new class MongoDB {
 			await this.server.close();
 		}
 	}
-};
+})();

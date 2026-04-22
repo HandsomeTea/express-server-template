@@ -1,6 +1,6 @@
-import type { Request, Response, NextFunction } from 'express';
-import { contextStorage, getContext, generateTraceId, trace } from '@/configs/index.js';
-import type { RequestContext } from '@/configs/index.js';
+import type { NextFunction, Request, Response } from 'express';
+import type { RequestContext } from '#/configs/index';
+import { contextStorage, generateTraceId, getContext, trace } from '#/configs/index';
 
 const filteNotAllown = (str?: string) => {
 	if (str) {
@@ -24,17 +24,20 @@ export default (req: Request, _res: Response, next: NextFunction): void => {
 		const ctx = getContext();
 
 		if (ctx) {
-			trace({
-				traceId: ctx.traceId,
-				spanId: ctx.spanId,
-				parentSpanId: ctx.parentSpanId,
-				header: {
-					...req.headers,
-					...req.headers.cookie ? { cookie: '******' } : {}
+			trace(
+				{
+					traceId: ctx.traceId,
+					spanId: ctx.spanId,
+					parentSpanId: ctx.parentSpanId,
+					header: {
+						...req.headers,
+						...(req.headers.cookie ? { cookie: '******' } : {})
+					},
+					query: req.query || {},
+					body: req.body || {}
 				},
-				query: req.query || {},
-				body: req.body || {}
-			}, 'receive-request').info(`[${req.method}] ${req.originalUrl}`);
+				'receive-request'
+			).info(`[${req.method}] ${req.originalUrl}`);
 		}
 
 		next();

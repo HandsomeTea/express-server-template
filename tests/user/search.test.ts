@@ -6,7 +6,7 @@
 //     // .post('/api/v1/user/user').for(3000).times//这个借口测试30000次
 //     .post('/api/v1/user/user', {}).for(20).seconds//这个借口测试20秒
 //     .attack();
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import app from '../../src/routes/app.js';
 // import assert from 'assert';
 

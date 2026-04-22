@@ -1,43 +1,47 @@
+import { randomBytes } from 'node:crypto';
+import type { Request } from 'express';
 import pino from 'pino';
 import { pinoHttp } from 'pino-http';
-import type { Request } from 'express';
-import { randomBytes } from 'crypto';
-import getENV from './envConfig.js';
+import getEnv from '#configs/envConfig';
 import packageData from '../../package.json' with { type: 'json' };
 
 const serverName = packageData.name;
 const auditLogger = pino(
 	{
-		level: getENV('LOG_LEVEL') || 'info',
+		level: getEnv('LOG_LEVEL') || 'info',
 		base: { app: serverName.toUpperCase() },
 		timestamp: pino.stdTimeFunctions.isoTime
 	},
 	pino.transport({
-		targets: [{
-			target: 'pino-roll',
-			level: 'info',
-			options: {
-				file: 'public/logs/audit.log',
-				frequency: 'daily',
-				mkdir: true,
-				translateTime: 'SYS:yyyy-mm-dd HH:MM:ss.l o'
+		targets: [
+			{
+				target: 'pino-roll',
+				level: 'info',
+				options: {
+					file: 'public/logs/audit.log',
+					frequency: 'daily',
+					mkdir: true,
+					translateTime: 'SYS:yyyy-mm-dd HH:MM:ss.l o'
+				}
 			}
-		}]
+		]
 	})
 );
 // 打印在控制台终端的Logger
 const terminalLogger = pino(
 	{
-		level: getENV('LOG_LEVEL') || 'info',
+		level: getEnv('LOG_LEVEL') || 'info',
 		base: { app: serverName.toUpperCase() },
 		timestamp: pino.stdTimeFunctions.isoTime
 	},
 	pino.transport({
-		targets: [{
-			target: 'pino-pretty',
-			level: getENV('LOG_LEVEL') || 'debug',
-			options: { colorize: true, translateTime: 'SYS:yyyy-mm-dd HH:MM:ss.l o' }
-		}]
+		targets: [
+			{
+				target: 'pino-pretty',
+				level: getEnv('LOG_LEVEL') || 'debug',
+				options: { colorize: true, translateTime: 'SYS:yyyy-mm-dd HH:MM:ss.l o' }
+			}
+		]
 	})
 );
 
@@ -50,13 +54,13 @@ export const audit = (module = 'AUDIT') => auditLogger.child({ module: module.to
 
 export const trace = (
 	data: {
-		traceId: string
-		spanId: string
-		parentSpanId: string
-		query?: Record<string, unknown>
-		body?: Record<string, unknown>
-		header?: Record<string, unknown>
-		response?: unknown
+		traceId: string;
+		spanId: string;
+		parentSpanId: string;
+		query?: Record<string, unknown>;
+		body?: Record<string, unknown>;
+		header?: Record<string, unknown>;
+		response?: unknown;
 	},
 	module = serverName
 ) => {

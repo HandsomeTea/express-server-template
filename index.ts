@@ -1,12 +1,12 @@
-import './startup/index.js';
-import { audit, getENV, log } from '@/configs/index.js';
+import '#/startup/index';
+import { audit, getEnv, log } from '#/configs/index';
 
-process.on('unhandledRejection', reason => {
+process.on('unhandledRejection', (reason) => {
 	log('SYSTEM').fatal(reason);
 	audit('SYSTEM').fatal(reason);
 });
 
-process.on('uncaughtException', reason => {
+process.on('uncaughtException', (reason) => {
 	log('SYSTEM').fatal(reason);
 	audit('SYSTEM').fatal(reason);
 });
@@ -19,15 +19,15 @@ const port = ((val: string): number => {
 	}
 
 	throw new Error('invalid port!');
-})(getENV('PORT') || '3000');
+})(getEnv('PORT') || '3000');
 
-import http from 'http';
-import app from '@/routes/app.js';
+import http from 'node:http';
+import app from '#/routes/app';
 
 app.set('port', port);
 const server = http.createServer(app);
 
-import mongodb from '@/tools/mongodb.js';
+import mongodb from '#/tools/mongodb';
 
 const isHealth = async () => {
 	if (!mongodb.isOK) {
@@ -44,7 +44,7 @@ createTerminus(server, {
 	signal: 'SIGINT',
 	healthChecks: {
 		'/healthcheck': async () => {
-			if (!await isHealth()) {
+			if (!(await isHealth())) {
 				throw new Error();
 			}
 		}
@@ -63,7 +63,7 @@ process.on('exit', async () => {
 	log('SYSREM_STOP_CLEAN').info('server connection will stop normally.');
 });
 
-const onError = (error: { syscall: string, code: string }) => {
+const onError = (error: { syscall: string; code: string }) => {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
@@ -88,12 +88,12 @@ import packageData from './package.json' with { type: 'json' };
 
 const serverName = packageData.name;
 
-import { createBlessing } from './startup/blessing.js';
+import { createBlessing } from '#/startup/blessing';
 
 server.on('error', onError);
 server.listen(port, () => {
 	const _check = setInterval(async () => {
-		if (!await isHealth()) {
+		if (!(await isHealth())) {
 			return;
 		}
 		if (process.send) {

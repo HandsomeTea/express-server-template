@@ -1,6 +1,6 @@
 import express from 'express';
-// import search from './search.js';
-import base from './base.js';
+// import search from './search';
+import base from '#routes/v1/users/base';
 
 const router = express.Router();
 
@@ -8,7 +8,6 @@ const router = express.Router();
 router.use(base);
 
 export default router;
-
 
 // import express from 'express';
 // import user from './surpass';

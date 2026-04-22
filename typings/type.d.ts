@@ -1,7 +1,7 @@
-declare interface httpArgument {
+declare interface HttpArgument {
 	params?: Record<string, unknown>;
 	data?: Record<string, unknown>;
-	headers?: Record<string, string | string[] | undefined>
+	headers?: Record<string, string | string[] | undefined>;
 }
 
 declare interface ExceptionInstance {
@@ -13,7 +13,7 @@ declare interface ExceptionInstance {
 }
 
 declare interface ExceptionConstructor {
-	new(messageOrErrorOrException: string | ExceptionInstance | Error, code?: string, reason?: Array<string>): ExceptionInstance;
+	new (messageOrErrorOrException: string | ExceptionInstance | Error, code?: string, reason?: Array<string>): ExceptionInstance;
 	readonly prototype: ExceptionInstance;
 }
 
@@ -21,9 +21,8 @@ declare const Exception: ExceptionConstructor;
 
 declare const bundleActionlogCountMap: Record<string, number>;
 
-
 declare namespace Express {
 	interface Response {
-		success: (result?: unknown) => void
+		success: (result?: unknown) => void;
 	}
 }
