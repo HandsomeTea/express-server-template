@@ -72,10 +72,17 @@
 		"pino-roll": "^4.0.0"
 	},
 	"lint-staged": {
-		"*.ts": [
-			"eslint . --fix",
+		"src/**/*.ts": [
+			"eslint --fix",
 			"prettier --write",
 			"npm run test"
+		],
+		"test/**/*.ts": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{json,md}": [
+			"prettier --write"
 		]
 	}
 }
