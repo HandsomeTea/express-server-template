@@ -52,7 +52,9 @@ createTerminus(server, {
 });
 
 process.on('SIGINT', () => {
-	process.exit(0);
+	server.close(() => {
+		process.exit(0);
+	});
 });
 
 process.on('exit', async () => {
