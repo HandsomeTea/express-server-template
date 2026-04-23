@@ -59,13 +59,15 @@ router
 		// 	total: await AdminUsers.count(req.query)
 		// });
 
-		res.success(await (async () => {
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve({ status: 'ok' });
-				}, 3000);
-			});
-		})());
+		res.success(
+			await (async () => {
+				return new Promise((resolve) => {
+					setTimeout(() => {
+						resolve({ status: 'ok' });
+					}, 3000);
+				});
+			})()
+		);
 	});
 
 router
