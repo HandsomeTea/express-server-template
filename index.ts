@@ -1,5 +1,5 @@
-import '#/startup/index';
-import { audit, getEnv, log } from '#/configs/index';
+import './src/startup/index.js';
+import { audit, getEnv, log } from './src/configs/index.js';
 
 process.on('unhandledRejection', (reason) => {
 	log('SYSTEM').fatal(reason);
@@ -22,12 +22,12 @@ const port = ((val: string): number => {
 })(getEnv('PORT') || '3000');
 
 import http from 'node:http';
-import app from '#/routes/app';
+import app from './src/routes/app.js';
 
 app.set('port', port);
 const server = http.createServer(app);
 
-import mongodb from '#/tools/mongodb';
+import mongodb from './src/tools/mongodb.js';
 
 const isHealth = async () => {
 	if (!mongodb.isOK) {
@@ -88,7 +88,7 @@ import packageData from './package.json' with { type: 'json' };
 
 const serverName = packageData.name;
 
-import { createBlessing } from '#/startup/blessing';
+import { createBlessing } from './src/startup/blessing.js';
 
 server.on('error', onError);
 server.listen(port, () => {

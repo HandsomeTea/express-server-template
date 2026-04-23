@@ -1,7 +1,7 @@
 // import { check } from '#/utils';
 // import { isPhone } from '@coco-sheng/js-tools';
 import express from 'express';
-import { ErrorCode } from '#/configs/index';
+import { ErrorCode } from '../../../configs/index.js';
 
 const router = express.Router();
 

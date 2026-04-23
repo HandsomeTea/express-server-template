@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import { getContext, log, trace } from '#/configs/index';
 import packageData from '../../package.json' with { type: 'json' };
+import { getContext, log, trace } from '../configs/index.js';
 
 const serverName = packageData.name;
 

@@ -61,57 +61,5 @@
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.3",
 		"vitest": "^4.1.5"
-	},
-	"imports": {
-		"#/*": {
-			"types": "./src/*.ts",
-			"import": "./src/*.ts",
-			"default": "./dist/*.js"
-		},
-		"#configs/*": {
-			"types": "./src/configs/*.ts",
-			"import": "./src/configs/*.ts",
-			"default": "./dist/configs/*.js"
-		},
-		"#startup/*": {
-			"types": "./src/startup/*.ts",
-			"import": "./src/startup/*.ts",
-			"default": "./dist/src/startup/*.js"
-		},
-		"#utils/*": {
-			"types": "./src/utils/*.ts",
-			"import": "./src/utils/*.ts",
-			"default": "./dist/utils/*.js"
-		},
-		"#services/*": {
-			"types": "./src/services/*.ts",
-			"import": "./src/services/*.ts",
-			"default": "./dist/services/*.js"
-		},
-		"#schemas/*": {
-			"types": "./src/schemas/*.ts",
-			"import": "./src/schemas/*.ts",
-			"default": "./dist/schemas/*.js"
-		},
-		"#routes/*": {
-			"types": "./src/routes/*.ts",
-			"import": "./src/routes/*.ts",
-			"default": "./dist/routes/*.js"
-		},
-		"#middlewares/*": {
-			"types": "./src/middlewares/*.ts",
-			"import": "./src/middlewares/*.ts",
-			"default": "./dist/middlewares/*.js"
-		},
-		"#tools/*": {
-			"types": "./src/tools/*.ts",
-			"import": "./src/tools/*.ts",
-			"default": "./dist/tools/*.js"
-		},
-		"#userTest/*": {
-			"types": "./tests/user/*.ts",
-			"import": "./tests/user/*.ts",
-			"default": "./dist/user/*.js"
-		}
 	}
 }

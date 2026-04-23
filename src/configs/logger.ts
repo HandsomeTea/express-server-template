@@ -2,8 +2,8 @@ import { randomBytes } from 'node:crypto';
 import type { Request } from 'express';
 import pino from 'pino';
 import { pinoHttp } from 'pino-http';
-import getEnv from '#configs/envConfig';
 import packageData from '../../package.json' with { type: 'json' };
+import getEnv from './envConfig.js';
 
 const serverName = packageData.name;
 const auditLogger = pino(

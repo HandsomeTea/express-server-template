@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { getContext, trace } from '#/configs/index';
+import { getContext, trace } from '../configs/index.js';
 
 export default (req: Request, res: Response, next: NextFunction): void => {
 	res.success = (data?: unknown) => {

@@ -2,7 +2,7 @@ import compression from 'compression';
 import express from 'express';
 import { rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
-import { ErrorCode } from '#/configs/index';
+import { ErrorCode } from '../configs/index.js';
 
 const app = express();
 
@@ -53,12 +53,12 @@ app.get('/', (_req, res) => {
 	});
 });
 
-import { acceptRequestHandle, errorHandle, successResponseHandle } from '#/middlewares/index';
+import { acceptRequestHandle, errorHandle, successResponseHandle } from '../middlewares/index.js';
 
 app.use(acceptRequestHandle);
 app.use(successResponseHandle);
 
-import v1 from '#routes/v1/index';
+import v1 from './v1/index.js';
 
 app.use('/api/v1', v1);
 app.use('{*path}', (req) => {

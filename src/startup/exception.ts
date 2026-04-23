@@ -1,5 +1,5 @@
-import { HttpErrorType } from '#/configs/errorCode';
 import packageData from '../../package.json' with { type: 'json' };
+import { HttpErrorType } from '../configs/index.js';
 
 const serverName = packageData.name;
 

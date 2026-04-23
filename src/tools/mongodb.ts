@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { getEnv, system } from '#/configs/index';
-import { protectedUrl } from '#/utils/index';
+import { getEnv, system } from '../configs/index.js';
+import { protectedUrl } from '../utils/index.js';
 
 const RECONNET_TIME = 5000;
 const mongoconnect = async () => {

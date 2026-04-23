@@ -1,1 +1,1 @@
-export { protectedUrl } from '#utils/protectedURL';
+export { protectedUrl } from './protectedURL.js';

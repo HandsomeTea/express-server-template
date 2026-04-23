@@ -1,1 +1,1 @@
-import '#userTest/search.test';
+import './search.test.js';

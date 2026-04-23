@@ -1,6 +1,6 @@
 import express from 'express';
 // import search from './search';
-import base from '#routes/v1/users/base';
+import base from './base.js';
 
 const router = express.Router();
 
