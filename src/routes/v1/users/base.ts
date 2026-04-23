@@ -8,7 +8,7 @@ const router = express.Router();
 router
 	.route('/user')
 	/**
-	 * @api {post} /api/v1/user/new 新建用户
+	 * @api {post} /api/v1/user/user 新建用户
 	 * @apiGroup 用户账户
 	 * @apiVersion 1.0.0
 	 * @apiBody {String} name 姓名
@@ -45,19 +45,27 @@ router
 		res.success({ status: 'ok' });
 	})
 	/**
-	 * @api {get} /api/v1/user/administrator 管理员用户分页查询
-	 * @apiGroup 管理员账户
+	 * @api {get} /api/v1/user/user 用户分页查询
+	 * @apiGroup 用户账户
 	 * @apiVersion 1.0.0
 	 * @apiQuery {String} [name] 姓名
 	 * @apiQuery {String} [phone] 手机号
 	 * @apiQuery {Number} [skip] 跳过数
 	 * @apiQuery {Number} [limit] 获取数
 	 */
-	.get(async (/*req, res*/) => {
+	.get(async (_req, res) => {
 		// res.sendData({
 		// 	list: await AdminUsers.find(req.query, req.query, ['account', 'name', 'phone']),
 		// 	total: await AdminUsers.count(req.query)
 		// });
+
+		res.success(await (async () => {
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve({ status: 'ok' });
+				}, 3000);
+			});
+		})());
 	});
 
 router

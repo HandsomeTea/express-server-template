@@ -45,13 +45,12 @@ if (process.env.NODE_ENV === 'development') {
 
 import packageData from '../../package.json' with { type: 'json' };
 
-app.get('/', (_req, res) => {
-	res.json({
-		service: 'TEMP-USER-MANAGER',
-		status: 'UP',
-		version: packageData.version
-	});
-});
+app.get('/', (_req, res) => res.json({
+	service: packageData.name,
+	status: 'OK',
+	version: packageData.version
+}));
+app.get('/favicon.ico', (_req, res) => res.status(204).end());
 
 import { acceptRequestHandle, errorHandle, successResponseHandle } from '../middlewares/index.js';
 

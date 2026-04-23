@@ -39,7 +39,7 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
-    "incremental": true, // 生成tsbuildinfo.json文件
+    "incremental": false, // 生成tsbuildinfo.json文件,用于增量编译
     "tsBuildInfoFile": "./.tsbuildinfo",
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
