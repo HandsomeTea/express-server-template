@@ -1,6 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import type { RequestContext } from '../configs/index.js';
-import { contextStorage, generateTraceId, getContext, trace } from '../configs/index.js';
+import { contextStorage, generateTraceId, getContext, type RequestContext, trace } from '../configs/index.js';
 
 const filteNotAllown = (str?: string) => {
 	if (str) {
